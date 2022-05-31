@@ -1,0 +1,51 @@
+﻿@using CheckToAim.Controllers
+@using System.Web.Mvc;
+
+@helper ListChecks(List<CheckToAim.Models.CheckList> c,
+    int count, List<List<string>> aims)
+{
+
+
+    <div>
+
+
+
+        @for (int i = 0; i < count; i++)
+        {
+
+            <div class="checkdivwrap">
+                <ul class="wrap">
+                    <li class="wrap">
+
+                        <h3><a href="@*@Url.Action("CheckList", "Home", c[i].ID)*@">@c[i].Name</a></h3>
+                        <hr />
+                        <ul class="aimslist">
+                            <li>@aims[i][0]</li>
+                            <li>@aims[i][1]</li>
+                            <li>@aims[i][2]</li>
+                            <li style="color: #3c3c3c">@aims[i][3]</li>
+                            <li style="color: #aaa9aa">@aims[i][4]</li>
+
+                        </ul>
+                        <hr style="margin-top: -0.5%;" />
+                        <div class="buttonswrap">
+                            <img src="~/Images/Like.png" href="@*@{
+  ((HomeController)this.ViewContext.Controller).LikeCheckList();
+}*@" />
+                            <img src="~/Images/Save.png" />
+                            <img src="~/Images/Add.png" />
+                        </div>
+
+
+                    </li>
+                </ul>
+            </div>
+
+        }
+
+    </div>
+
+
+
+
+}

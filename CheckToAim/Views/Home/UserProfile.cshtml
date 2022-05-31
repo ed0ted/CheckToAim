@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profile</h2>
+<h3>Welcome, @ViewBag.Name</h3>
+<h4>Create your own CheckList: </h4>
+@Html.ActionLink("Create your CheckList!", "CreateCheckList")
+<hr />
+<h3>Completing CheckLists: </h3>
+<h4>@Html.ActionLink("Your completing lists", "CompleteCheckToAim")</h4>
+
+<hr />
+<h3>Your CheckList`s: </h3>
+@Html.Partial("ShowList")

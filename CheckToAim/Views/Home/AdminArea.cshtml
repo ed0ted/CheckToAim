@@ -1,0 +1,129 @@
+﻿@model CheckToAim.Models.AdminViewModel
+@{
+    ViewBag.Title = "AdminArea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Web.Mvc
+
+<head>
+    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+    <h2>AdminArea</h2>
+
+    <form method="get">
+        <div style="display:flex; justify-content:space-around; align-content:center; margin-top:10px;">
+            <div>
+                <label>Select: </label>
+                @Html.DropDownList("filter", Model.Filter as SelectList)
+                <div style="position:relative; bottom:0; left:150%;">Users by username | CheckLists by Guid</div>
+            </div>
+            <div>
+                <label>Search:</label>
+                @Html.TextBox("search", null)
+            </div>
+
+            <input type="submit" value="Show" class="btn btn-primary">
+        </div>
+
+    </form>
+    <div>
+        @if (ViewBag.Type != 0)
+        {
+            if (ViewBag.Type == 1)
+            {
+                <table class="table">
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Password</th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.Users)
+                    {
+                        <tr>
+                            <td>@item.Username</td>
+                            <td>@item.Email</td>
+                            <td>@item.Name</td>
+                            <td>@item.RoleId</td>
+                            <td>@item.Password</td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "EditUser", new { id = item.Username }) |
+                                @Html.ActionLink("Delete", "DeleteUser", new { id = item.Username })
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+
+
+            }
+            else if (ViewBag.Type == 2)
+            {
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>ID</th>
+                        <th>Theme | ID_Theme</th>
+                        <th>Creator username</th>
+                        <th>Action</th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.CheckLists)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Description</td>
+                            <td>@item.ID</td>
+                            <td>@item.Theme.ThemeName | @item.ID_Theme</td>
+                            <td>@item.Creator.Username</td>
+                            <td></td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "EditCheckList", "Home", new { id = item.ID }, new { @class = "viewDialog", data_dialog_title = "Edit" }) |
+                                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |*@
+                                @* @Html.ActionLink("Details")|*@
+                                @Html.ActionLink("Delete", "DeleteCheckList", new { id = item.ID })
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+            }
+        }
+
+
+
+    </div>
+
+    <script src='@Url.Content("~/Scripts/jquery-1.12.4.min.js")' type="text/javascript"></script>
+    <script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+
+            $.ajaxSetup({ cache: false });
+
+            $(".viewDialog").on("click", function (e) {
+                e.preventDefault();
+
+                $("<div></div>")
+                    .addClass("dialog")
+                    .appendTo("body")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() },
+                        modal: true
+                    })
+                    .load(this.href);
+            });
+        });
+    </script>
+</body>

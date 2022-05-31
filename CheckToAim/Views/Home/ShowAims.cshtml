@@ -1,0 +1,35 @@
+﻿@model CheckToAim.Models.PersonalAimList
+
+
+<table class="table">
+    
+
+@foreach (var item in Model.Aims)
+{
+    <tr>
+        <td style="width:10%;">         
+            @Html.CheckBoxFor(modelItem=>item.IsCompleted, new { onclick = "UpdateAim(this)", data_aimid=item.Id })
+        </td>
+        <td style="width:10%;">
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        
+        
+    </tr>
+}
+
+</table>
+<script>
+    function UpdateAim(elem) {
+    var isCompleted = $(elem).is(':checked');
+    var cid = $(elem).data('aimid');
+    $.ajax({
+        type: 'POST',
+        url: '@Url.Action("UpdateAim", "Home")',
+        data: { check: isCompleted,aimId:cid },
+        success: function(res) {
+            console.log(res);
+        }
+    });
+}
+</script>

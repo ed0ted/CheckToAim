@@ -1,0 +1,108 @@
+﻿@using CheckToAim.Models
+@{
+    ViewBag.Title = "CheckToAim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CheckToAim.Models.IndexViewModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Notes</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <style>
+        /*.wrap {
+            display: inline-block;
+        }
+
+        .checkdivwrap {
+            display: inline-block;
+            min-width: 300px;
+
+            width: 30%;
+            padding: 20px;
+            background-color: lightsteelblue;
+            left: 3%;
+            margin-left: 1%;
+            margin-right: 1%;
+            margin-top: 5%;
+            border-radius: 5px;
+        }
+
+            .checkdivwrap h3 {
+                text-align: center;
+                font-size: 2.5vh;
+            }
+
+        img {
+            width: 10%;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        .buttonswrap {
+            width: 100%;
+            text-align: center;
+        }
+
+        hr {
+            height: 2px;
+            background-color: lightslategrey;
+            border-radius: 2px;
+            border: none;
+        }
+
+        .aimslist {
+            background: -webkit-linear-gradient(top, transparent 50%, white 110%);
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+        }
+        .aimslist li{
+            width: 10px;
+            padding-right: 110%;
+            margin-left: -10%;
+            
+            
+        }*/
+        
+
+        .like-btn:active {
+            content: url(../Images/Like.png);
+        }
+
+        
+        /***************************/
+
+
+
+    </style>
+</head>
+<body>
+    <form method="get">
+        <div style="display:flex; justify-content:space-around; align-content:center; margin-top:10px;">
+            <div>
+                <label>Search:</label>
+                @Html.TextBox("search", null)
+            </div>
+            <div>
+                <label>Filter by theme: </label>
+                @Html.DropDownList("theme", Model.FilterThemes as SelectList)
+            </div>
+            <div>
+                <label>Sort by:</label>
+                @Html.DropDownList("sortby", Model.SortBy as SelectList)
+            </div>
+            
+            <input type="submit" value="Show" class="btn btn-primary">
+        </div>
+        
+    </form>
+    <h2 style="color:red;">@ViewBag.Message</h2>
+        @Html.Partial("ShowList")
+
+
+
+</body>
+</html>
