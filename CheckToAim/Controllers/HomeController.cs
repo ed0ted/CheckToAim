@@ -380,16 +380,33 @@ namespace CheckToAim.Controllers
         [HttpPost]
         public ActionResult DeleteCheckList(Guid id)
         {
-            context.CheckLists.Remove(context.CheckLists.Where(c => c.ID == id).FirstOrDefault());
-            context.SaveChanges();
-            ViewBag.Message = "Deleted successfully!";
+            var item = context.CheckLists.FirstOrDefault(c => c.ID == id);
+            if (item != null)
+            {
+                context.CheckLists.Remove(item);
+                context.SaveChanges();
+                ViewBag.Message = "Deleted successfully!";
+            }
+            else
+            {
+                ViewBag.Message = "Item not found.";
+            }
             return View();
         }
 
         public ActionResult Delete_Completing(Guid id)
         {
-            context.PersonalAimLists.Remove(context.PersonalAimLists.Where(p => p.Id_ParentCheckList == id).FirstOrDefault());
-
+            var record = context.PersonalAimLists.FirstOrDefault(p => p.Id_ParentCheckList == id);
+            if (record != null)
+            {
+                context.PersonalAimLists.Remove(record);
+                context.SaveChanges();
+                ViewBag.Message = "Deleted successfully!";
+            }
+            else
+            {
+                ViewBag.Message = "Nothing to delete.";
+            }
             return View();
         }
 

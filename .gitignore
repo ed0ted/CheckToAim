@@ -361,3 +361,25 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+ 
+# --- Repo-specific additions (ASP.NET MVC, packages.config) ---
+# Ignore restored NuGet packages (packages.config workflow)
+packages/
+!packages/build/
+!packages/repositories.config
+
+# Ignore local tools and installers fetched during development
+nuget.exe
+NDP*.exe
+
+# Ignore temporary extraction folder used during local troubleshooting
+tmp_refasm_pkg/
+
+# Ignore local database files
+*.mdf
+*.ldf
+App_Data/*.mdf
+App_Data/*.ldf
+
+# Ignore VS Code workspace settings (optional)
+.vscode/

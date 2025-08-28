@@ -17,7 +17,7 @@ namespace CheckToAim.Models
         public DbSet<Aim> Aims { get; set; }
         public DbSet<PersonalAimList> PersonalAimLists { get; set; }
         //public DbSet<Filter> AdminFilters { get; set; }
-        public CheckListDBContext() : base(@"")//Add your DB connection string here
+        public CheckListDBContext() : base("name=CheckToAimDb") // Uses Web.config <connectionStrings>
         {
 
         }
